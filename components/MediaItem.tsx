@@ -1,6 +1,7 @@
 "use client"
 
 import UseLoadImage from "@/hooks/UseLoadImage"
+import UsePlayer from "@/hooks/UsePlayer"
 import { Song } from "@/types"
 import Image from "next/image"
 import { FC } from "react"
@@ -11,11 +12,13 @@ interface MediaItemProps {
 }
 
 const MediaItem:FC<MediaItemProps> = ({ data, onClick }) => {
+  const player = UsePlayer()
   const imageUrl = UseLoadImage(data)
   const handleClick = () => {
     if(onClick){
       return onClick(data.id)
     }
+    return player.setId(data.id)
   }
   return(
     <div onClick={handleClick} className="flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 rounded-md">

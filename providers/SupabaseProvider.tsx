@@ -9,7 +9,7 @@ interface SupabaseProviderProps {
   children: ReactNode
 }
 
-const SupabaseProvider:FC<SupabaseProviderProps> = ({ children }) => {
+const SupabaseProvider:FC<SupabaseProviderProps> = async({ children }) => {
   const [supabaseClient] = useState(() => createClientComponentClient<Database>())
 
   return (

@@ -9,22 +9,26 @@ import {AiOutlinePlus} from 'react-icons/ai'
 import { LuLibrary } from 'react-icons/lu'
 import MediaItem from './MediaItem'
 import UseOnPlay from '@/hooks/UseOnPlay'
+import useSubscribeModal from '@/hooks/UseSubscribeModal'
 
 interface LibraryProps {
   songs: Song[]
 }
 
 const Library:FC<LibraryProps> = ({songs}) => {
+  const subscribeModal = useSubscribeModal()
   const authModal = useAuthModal()
   const uploadModal = useUploadModal()
-  const { user } = useUser()
+  const { user, subscription } = useUser()
   const onPlay = UseOnPlay(songs)
 
   const onClick = () => {
     if(!user){
       return authModal.onOpen()
     } 
-    // TODO check subscription
+    if(!subscription){
+      return subscribeModal.onOpen()
+    }
     return uploadModal.onOpen()
   }
   return(
